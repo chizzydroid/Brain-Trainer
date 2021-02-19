@@ -24,6 +24,29 @@ public class MainActivity2 extends AppCompatActivity {
     int scores;
     int numberOfQuestions;
 
+      public  void play (View view){
+          scores = 0;
+          numberOfQuestions = 0;
+          timer.setText("30s");
+          score.setText(Integer.toString(scores)+"/"+Integer.toString(numberOfQuestions));
+
+          newQuestion();
+          new  CountDownTimer(30100,1000){
+
+              @Override
+              public void onTick(long millisUntilFinished) {
+                  timer.setText( String .valueOf(millisUntilFinished / 1000)+ "s");
+              }
+
+              @Override
+              public void onFinish() {
+                  correct.setText(" Done! Total score is = "+Integer.toString(scores)+" /"+Integer.toString(numberOfQuestions));
+                  playAgain.setVisibility(View.VISIBLE);
+              }
+          }.start();
+
+      }
+
     ArrayList<Integer> answers = new ArrayList<Integer>();
     int locationOfCorrectAnswer;
      public  void tap (View view){
@@ -55,7 +78,6 @@ public class MainActivity2 extends AppCompatActivity {
                  answers.add(a + b);
              }else {
                  int wrongAnswer = rand.nextInt(rand.nextInt(41));
-
                  while (wrongAnswer == a+b){
                      wrongAnswer = rand.nextInt(41);
                  }
@@ -75,8 +97,7 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-      sumTextView = findViewById(R.id.sumTextView);
-
+        sumTextView = findViewById(R.id.sumTextView);
         button0 = findViewById(R.id.button0);
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
@@ -85,19 +106,7 @@ public class MainActivity2 extends AppCompatActivity {
         score   = findViewById(R.id.score);
         timer  = findViewById(R.id.timer);
         playAgain = findViewById(R.id.playAgain);
-        newQuestion();
-        new  CountDownTimer(30100,1000){
 
-            @Override
-            public void onTick(long millisUntilFinished) {
-           timer.setText( String .valueOf(millisUntilFinished / 1000)+ "s");
-            }
-
-            @Override
-            public void onFinish() {
-                correct.setText(" Done! Total score is = "+Integer.toString(scores)+" /"+Integer.toString(numberOfQuestions));
-
-            }
-        }.start();
-    }
+         play(timer  = findViewById(R.id.timer));
+     }
 }

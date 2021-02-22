@@ -25,6 +25,7 @@ public class MainActivity2 extends AppCompatActivity {
     int numberOfQuestions;
 
       public  void play (View view){
+          playAgain.setVisibility(View.INVISIBLE);
           scores = 0;
           numberOfQuestions = 0;
           timer.setText("30s");

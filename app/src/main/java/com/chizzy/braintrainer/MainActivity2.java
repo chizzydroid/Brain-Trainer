@@ -2,6 +2,7 @@ package com.chizzy.braintrainer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -23,31 +24,30 @@ public class MainActivity2 extends AppCompatActivity {
     Button playAgain;
     int scores;
     int numberOfQuestions;
-
       public  void play (View view){
           playAgain.setVisibility(View.INVISIBLE);
           scores = 0;
           numberOfQuestions = 0;
           timer.setText("30s");
           score.setText(Integer.toString(scores)+"/"+Integer.toString(numberOfQuestions));
-
           newQuestion();
+
           new  CountDownTimer(30100,1000){
 
               @Override
               public void onTick(long millisUntilFinished) {
                   timer.setText( String .valueOf(millisUntilFinished / 1000)+ "s");
               }
-
               @Override
               public void onFinish() {
                   correct.setText(" Done! Total score is = "+Integer.toString(scores)+" /"+Integer.toString(numberOfQuestions));
                   playAgain.setVisibility(View.VISIBLE);
+                  MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.timer);
+                  mediaPlayer.start();
+
               }
           }.start();
-
       }
-
     ArrayList<Integer> answers = new ArrayList<Integer>();
     int locationOfCorrectAnswer;
      public  void tap (View view){
@@ -61,7 +61,6 @@ public class MainActivity2 extends AppCompatActivity {
         score.setText(Integer.toString(scores)+"/"+Integer.toString(numberOfQuestions));
         newQuestion();
      }
-
      public void newQuestion(){
 
          Random  rand = new Random();
@@ -83,16 +82,13 @@ public class MainActivity2 extends AppCompatActivity {
                      wrongAnswer = rand.nextInt(41);
                  }
                  answers.add(wrongAnswer);
-
              }
-
          }
          button0.setText(Integer.toString(answers.get(0)));
          button1.setText(Integer.toString(answers.get(1)));
          button2.setText(Integer.toString(answers.get(2)));
          button3.setText(Integer.toString(answers.get(3)));
      }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
